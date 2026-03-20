@@ -1,0 +1,67 @@
+export const eventItem = {
+    title: "string",
+    image: "string",
+    slug: "string",
+    location: "string",
+    date: "string",
+    time: "string",
+}
+
+export const events = [
+  {
+    title: "React Conf 2026",
+    image: "/images/event1.png",
+    slug: "react-conf-2026",
+    location: "Austin, Texas",
+    date: "April 15-17, 2026",
+    time: "09:00 AM - 05:00 PM",
+  },
+  {
+    title: "Google I/O",
+    image: "/images/event2.png",
+    slug: "google-io-2026",
+    location: "Mountain View, California",
+    date: "May 12-14, 2026",
+    time: "08:30 AM - 06:00 PM",
+  },
+  {
+    title: "Web Summit 2026",
+    image: "/images/event3.png",
+    slug: "web-summit-2026",
+    location: "Colorado, USA",
+    date: "June 8-10, 2026",
+    time: "10:00 AM - 07:00 PM",
+  },
+  {
+    title: "GitHub Universe",
+    image: "/images/event4.png",
+    slug: "github-universe-2026",
+    location: "San Francisco, California",
+    date: "June 22-23, 2026",
+    time: "09:00 AM - 05:00 PM",
+  },
+  {
+    title: "Next.js Conf 2026",
+    image: "/images/event5.png",
+    slug: "nextjs-conf-2026",
+    location: "New York, New York",
+    date: "July 14-15, 2026",
+    time: "08:00 AM - 06:00 PM",
+  },
+  {
+    title: "GraphQL Conf 2026",
+    image: "/images/event6.png",
+    slug: "graphql-conf-2026",
+    location: "Brooklyn, New York",
+    date: "August 18-20, 2026",
+    time: "09:00 AM - 05:30 PM",
+  },
+  {
+    title: "JavaScript Summit",
+    image: "/images/event-full.png",
+    slug: "js-summit-2026",
+    location: "Boston, Massachusetts",
+    date: "September 10-12, 2026",
+    time: "08:30 AM - 06:00 PM",
+  },
+];
