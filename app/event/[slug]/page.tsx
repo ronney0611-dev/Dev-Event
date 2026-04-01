@@ -1,7 +1,7 @@
 import BookEvent from "@/components/BookEvent";
 import EventCard from "@/components/EventCard";
 import { IEvent } from "@/database";
-import { getSimilarEventsBySlug } from "@/lib/actions/eventActions";
+import { getEventBySlug, getSimilarEventsBySlug } from "@/lib/actions/eventActions";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -25,8 +25,8 @@ const EventAgenda = ({ agendaItems }: { agendaItems: string[] }) => (
 
 const EventDetailsSuspense = async ({ params }: { params: Promise<{ slug: string }> }) => {
     const { slug } = await params;
-    const request = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/event/${slug}`);
-    const response = await request.json();
+
+    const response = await getEventBySlug(slug);
 
     if (!response) return notFound();
 
@@ -77,7 +77,7 @@ const EventDetailsSuspense = async ({ params }: { params: Promise<{ slug: string
                             <p className="text-sm">Be the first to book your spot!</p>
                         )}
 
-                        <BookEvent eventId={response._id} slug={response.slug} />
+                        <BookEvent eventId={response._id.toString()} slug={response.slug} />
                     </div>
                 </aside>
             </div>
