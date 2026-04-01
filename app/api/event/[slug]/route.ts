@@ -12,10 +12,10 @@ export async function GET(res:NextRequest, {params}: {params: Promise<{slug: str
         console.log(slug);
         const response = await Event.findOne({slug});
         if(!response){
-            return new NextResponse("Event not found", { status: 404 });
+            return NextResponse.json({message: "Event not found"}, { status: 404 });
         }
-        return new NextResponse(JSON.stringify(response), { status: 200 });
+        return NextResponse.json(response, { status: 200 });
     } catch (error) {
-        return new NextResponse({message: "Failed to fetch event", error: error instanceof Error ? error.message : "Unknown error" }, { status: 500 });
+        return NextResponse.json({message: "Failed to fetch event", error: error instanceof Error ? error.message : "Unknown error" }, { status: 500 });
     }
 }
