@@ -4,6 +4,7 @@ import { IEvent } from "@/database";
 import { getSimilarEventsBySlug } from "@/lib/actions/eventActions";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 const EventDetailItem = ({ icon, alt, label }: { icon: string; alt: string; label: string; }) => (
     <div className="flex-row-gap-2 items-center">
@@ -22,18 +23,7 @@ const EventAgenda = ({ agendaItems }: { agendaItems: string[] }) => (
     </div>
 )
 
-const EventTags = ({ tags }: { tags: string[] }) => (
-    <div className="flex flex-row gap-1.5 flex-wrap">
-        {tags.map((tag) => (
-            <div className="pill" key={tag}>{tag}</div>
-        ))}
-    </div>
-)
-
-
-
-const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
-
+const EventDetailsSuspense = async ({ params }: { params: Promise<{ slug: string }> }) => {
     const { slug } = await params;
     const request = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/event/${slug}`);
     const response = await request.json();
@@ -45,7 +35,6 @@ const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }> 
     const similarEvents: IEvent[] = await getSimilarEventsBySlug(slug);
 
     console.log(similarEvents);
-
     return (
         <section id='event' >
             <div className="header" >
@@ -70,11 +59,10 @@ const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }> 
                         <EventDetailItem icon="/icons/audience.svg" alt="audience" label={response.audience} />
                     </section>
                     <EventAgenda agendaItems={response.agenda} />
-                    <section className="flex-col-gap-2">
+                    <section className="flex-col-gap-2 ">
                         <h2>About the Organizer</h2>
-                        <p>{response.organizer}</p>
+                        <p className="text-xl text-white " >{response.organizer}</p>
                     </section>
-                    <EventTags tags={response.tags} />
                 </div>
 
                 {/* rightside - Booking */}
@@ -89,7 +77,7 @@ const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }> 
                             <p className="text-sm">Be the first to book your spot!</p>
                         )}
 
-                        <BookEvent />
+                        <BookEvent eventId={response._id} slug={response.slug} />
                     </div>
                 </aside>
             </div>
@@ -110,6 +98,16 @@ const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }> 
                 </div>
             </div>
         </section>
+    )
+}
+
+
+
+const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
+    return (
+        <Suspense>
+            <EventDetailsSuspense params={params} />
+        </Suspense>
     )
 }
 
